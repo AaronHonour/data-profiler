@@ -5,6 +5,7 @@ from typing import Optional
 
 import pandas as pd
 
+from data_profiler.core.pattern_detector import PatternDetector
 from data_profiler.models.config import ProfileConfig
 from data_profiler.models.profile import TextStats
 
@@ -74,23 +75,32 @@ class TextAnalyzer:
 
         # Pattern detection (sample for performance)
         patterns = {}
-        if config.detect_patterns:
-            # Sample data for pattern detection to avoid checking every value
-            sample_size = min(
-                config.max_string_length_sample, len(clean_str)
-            )
-            sample = clean_str.sample(n=sample_size, random_state=42)
+        pii_risk = None
 
-            for pattern_name, pattern_regex in TextAnalyzer.PATTERNS.items():
-                # Vectorized pattern matching
-                matches = sample.str.match(pattern_regex, na=False)
-                match_count = int(matches.sum())
-                if match_count > 0:
-                    # Extrapolate to full dataset
-                    estimated_count = int(
-                        (match_count / sample_size) * len(clean_str)
-                    )
-                    patterns[pattern_name] = estimated_count
+        if config.detect_patterns:
+            if config.detect_pii:
+                # Use enhanced pattern detector with PII detection
+                patterns = PatternDetector.detect_all_patterns(
+                    series, config.max_string_length_sample
+                )
+                pii_risk = PatternDetector.detect_pii_risk(patterns)
+            else:
+                # Use basic pattern detection
+                sample_size = min(
+                    config.max_string_length_sample, len(clean_str)
+                )
+                sample = clean_str.sample(n=sample_size, random_state=42)
+
+                for pattern_name, pattern_regex in TextAnalyzer.PATTERNS.items():
+                    # Vectorized pattern matching
+                    matches = sample.str.match(pattern_regex, na=False)
+                    match_count = int(matches.sum())
+                    if match_count > 0:
+                        # Extrapolate to full dataset
+                        estimated_count = int(
+                            (match_count / sample_size) * len(clean_str)
+                        )
+                        patterns[pattern_name] = estimated_count
 
         return TextStats(
             avg_length=avg_length,
@@ -99,4 +109,5 @@ class TextAnalyzer:
             empty_count=empty_count,
             whitespace_count=whitespace_count,
             patterns=patterns,
+            pii_risk_level=pii_risk,
         )

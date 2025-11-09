@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 from scipy import stats  # type: ignore
 
+from data_profiler.core.advanced_stats import AdvancedStatistics
 from data_profiler.models.config import ProfileConfig
 from data_profiler.models.profile import NumericStats
 
@@ -90,6 +91,30 @@ class NumericAnalyzer:
                 "bin_edges": bin_edges.tolist(),
             }
 
+        # Advanced statistics (if enabled)
+        is_bimodal = None
+        bimodality_coef = None
+        normality_tests = None
+        distribution_fits = None
+        variance_stability = None
+
+        if config.advanced_stats and len(values) > 10:
+            # Bimodality
+            is_bimodal, bimodality_coef = AdvancedStatistics.detect_bimodality(values)
+
+            # Normality tests
+            if len(values) >= 20:  # Minimum for meaningful tests
+                normality_tests = AdvancedStatistics.test_normality(values)
+
+            # Distribution fitting (sample for performance)
+            if len(values) > 100:
+                sample = np.random.choice(values, size=min(5000, len(values)), replace=False)
+                distribution_fits = AdvancedStatistics.fit_distributions(sample)
+
+            # Variance stability
+            if len(values) > 200:
+                variance_stability = AdvancedStatistics.analyze_variance_stability(values)
+
         return NumericStats(
             mean=mean_val,
             median=median,
@@ -109,4 +134,9 @@ class NumericAnalyzer:
             coefficient_of_variation=cv,
             outlier_count=outlier_count,
             histogram=histogram,
+            is_bimodal=is_bimodal,
+            bimodality_coefficient=bimodality_coef,
+            normality_tests=normality_tests,
+            distribution_fits=distribution_fits,
+            variance_stability=variance_stability,
         )

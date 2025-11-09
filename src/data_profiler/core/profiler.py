@@ -14,6 +14,8 @@ from data_profiler.core.analyzers import (
     NumericAnalyzer,
     TextAnalyzer,
 )
+from data_profiler.core.recommendations import RecommendationsEngine
+from data_profiler.core.schema_inference import SchemaInferenceEngine
 from data_profiler.models.config import ProfileConfig
 from data_profiler.models.profile import (
     ColumnProfile,
@@ -88,7 +90,8 @@ class DataProfiler:
         # Compute profiling duration
         duration = time.perf_counter() - start_time
 
-        return DataProfile(
+        # Create initial profile
+        profile = DataProfile(
             row_count=len(df),
             column_count=len(df.columns),
             memory_bytes=memory_bytes,
@@ -99,6 +102,16 @@ class DataProfiler:
             type_summary=type_summary,
             profiling_duration_seconds=duration,
         )
+
+        # Generate recommendations (if enabled)
+        if self.config.generate_recommendations:
+            profile.recommendations = RecommendationsEngine.generate_recommendations(profile)
+
+        # Infer schema (if enabled)
+        if self.config.infer_schema:
+            profile.inferred_schema = SchemaInferenceEngine.infer_schema(column_profiles, len(df))
+
+        return profile
 
     def _load_data(
         self, data: Union[pd.DataFrame, str], **kwargs: Dict

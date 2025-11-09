@@ -5,6 +5,7 @@ from typing import Optional
 
 import pandas as pd
 
+from data_profiler.core.time_series import TimeSeriesAnalyzer
 from data_profiler.models.config import ProfileConfig
 from data_profiler.models.profile import DatetimeStats
 
@@ -73,6 +74,11 @@ class DatetimeAnalyzer:
                 int(days_of_week.mode().iloc[0]) if len(days_of_week.mode()) > 0 else None
             )
 
+        # Time series analysis (if enabled)
+        time_series_analysis = None
+        if config.time_series_analysis:
+            time_series_analysis = TimeSeriesAnalyzer.analyze(clean_data)
+
         return DatetimeStats(
             min_date=min_date_py,
             max_date=max_date_py,
@@ -80,4 +86,5 @@ class DatetimeAnalyzer:
             most_common_year=most_common_year,
             most_common_month=most_common_month,
             most_common_day_of_week=most_common_day_of_week,
+            time_series=time_series_analysis,
         )

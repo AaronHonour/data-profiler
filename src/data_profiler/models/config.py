@@ -53,6 +53,23 @@ class ProfileConfig(BaseModel):
         True, description="Detect common patterns in text fields (email, URL, etc.)"
     )
 
+    # Advanced features
+    advanced_stats: bool = Field(
+        False, description="Compute advanced statistics (normality tests, distribution fitting)"
+    )
+    detect_pii: bool = Field(
+        False, description="Detect PII and sensitive data (SSN, credit cards)"
+    )
+    time_series_analysis: bool = Field(
+        False, description="Analyze datetime columns for time series patterns"
+    )
+    generate_recommendations: bool = Field(
+        True, description="Generate data quality and optimization recommendations"
+    )
+    infer_schema: bool = Field(
+        False, description="Infer database schema and DDL"
+    )
+
     # Memory optimization
     chunk_size: int = Field(
         100_000,

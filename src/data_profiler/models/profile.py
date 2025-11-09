@@ -18,6 +18,24 @@ class ColumnType(str, Enum):
     UNKNOWN = "unknown"
 
 
+class StatisticalTests(BaseModel):
+    """Results from statistical tests."""
+
+    tests: Dict[str, Any] = Field(
+        default_factory=dict, description="Statistical test results"
+    )
+
+
+class DistributionFit(BaseModel):
+    """Distribution fitting results."""
+
+    distribution: str = Field(description="Distribution name")
+    parameters: Dict[str, float] = Field(description="Distribution parameters")
+    ks_statistic: float = Field(description="Kolmogorov-Smirnov statistic")
+    p_value: float = Field(description="P-value for goodness of fit")
+    aic: float = Field(description="Akaike Information Criterion")
+
+
 class NumericStats(BaseModel):
     """Statistics for numeric columns."""
 
@@ -41,6 +59,12 @@ class NumericStats(BaseModel):
     histogram: Optional[Dict[str, List[float]]] = Field(
         None, description="Histogram bins and frequencies"
     )
+    # Advanced statistics
+    is_bimodal: Optional[bool] = None
+    bimodality_coefficient: Optional[float] = None
+    normality_tests: Optional[StatisticalTests] = None
+    distribution_fits: Optional[List[DistributionFit]] = None
+    variance_stability: Optional[Dict[str, Any]] = None
 
 
 class CategoricalStats(BaseModel):
@@ -64,10 +88,24 @@ class TextStats(BaseModel):
     max_length: Optional[int] = None
     empty_count: int = 0
     whitespace_count: int = 0
-    patterns: Dict[str, int] = Field(
+    patterns: Dict[str, Any] = Field(
         default_factory=dict,
         description="Detected patterns (email, url, phone, etc.)",
     )
+    pii_risk_level: Optional[str] = Field(
+        None, description="PII risk level: high, medium, low, none"
+    )
+
+
+class TimeSeriesAnalysis(BaseModel):
+    """Time series specific analysis."""
+
+    has_gaps: bool = Field(False, description="Dataset has time gaps")
+    gap_count: Optional[int] = None
+    avg_gap_days: Optional[float] = None
+    max_gap_days: Optional[float] = None
+    is_regular_frequency: Optional[bool] = None
+    inferred_frequency: Optional[str] = None
 
 
 class DatetimeStats(BaseModel):
@@ -79,6 +117,7 @@ class DatetimeStats(BaseModel):
     most_common_year: Optional[int] = None
     most_common_month: Optional[int] = None
     most_common_day_of_week: Optional[int] = None
+    time_series: Optional[TimeSeriesAnalysis] = None
 
 
 class DataQualityMetrics(BaseModel):
@@ -126,6 +165,29 @@ class CorrelationMatrix(BaseModel):
     method: str = Field("pearson", description="Correlation method used")
 
 
+class Recommendation(BaseModel):
+    """Data quality or optimization recommendation."""
+
+    severity: str = Field(description="Severity: critical, warning, info")
+    category: str = Field(description="Category: data_quality, performance, schema, etc.")
+    column: Optional[str] = Field(None, description="Related column (if applicable)")
+    title: str = Field(description="Short title")
+    description: str = Field(description="Detailed description")
+    suggestion: Optional[str] = Field(None, description="Suggested action")
+
+
+class SchemaInference(BaseModel):
+    """Inferred schema for database creation."""
+
+    columns: List[Dict[str, Any]] = Field(description="Column definitions")
+    primary_key_candidates: List[str] = Field(
+        default_factory=list, description="Potential primary key columns"
+    )
+    indexes_recommended: List[str] = Field(
+        default_factory=list, description="Columns recommended for indexing"
+    )
+
+
 class DataProfile(BaseModel):
     """Complete profile for a dataset."""
 
@@ -148,6 +210,12 @@ class DataProfile(BaseModel):
         default_factory=dict,
         description="Count of columns by type",
     )
+
+    # Advanced features
+    recommendations: List[Recommendation] = Field(
+        default_factory=list, description="Data quality and optimization recommendations"
+    )
+    inferred_schema: Optional[SchemaInference] = None
 
     # Performance metrics
     profiling_duration_seconds: float = Field(
