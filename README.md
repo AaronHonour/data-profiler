@@ -15,6 +15,17 @@ A **high-performance data profiling service** designed for exceptional speed and
 - **Multiple Formats** - Support for CSV, Parquet, and JSON files
 - **Scalable Design** - Handles datasets from small to very large with sampling
 
+### Next-Generation Features (v0.3.0) ✨
+
+- **Profile Comparison & Drift Detection** - Track data changes over time with statistical significance testing
+- **Custom Pattern Detection** - Define and detect domain-specific patterns with pre-built libraries
+- **Multi-Table Analysis** - Automatic foreign key detection and relationship mapping
+- **HTML Report Generation** - Interactive visualizations with Plotly charts
+- **Data Lineage Tracking** - Track data transformations and dependencies
+- **ML-Based Recommendations** - Statistical learning for intelligent insights
+
+📚 **See [NEXT_GEN_FEATURES.md](NEXT_GEN_FEATURES.md) for detailed documentation**
+
 ### Statistical Analysis
 
 #### Numeric Columns
