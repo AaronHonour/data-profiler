@@ -1,0 +1,250 @@
+{
+  "system_info": {
+    "platform": "Linux-4.4.0-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "python_version": "3.11.14",
+    "cpu_count": 16,
+    "physical_cores": 16,
+    "total_ram_gb": 13.0,
+    "timestamp": "2025-11-09T07:59:42.438713"
+  },
+  "results": [
+    {
+      "benchmark": "size_scaling",
+      "rows": 1000,
+      "columns": 10,
+      "cells": 10000,
+      "duration_seconds": 0.0515,
+      "throughput_rows_per_sec": 19426,
+      "time_per_row_microseconds": 51.48,
+      "memory_used_mb": 2.63,
+      "dataset_memory_mb": 0.35,
+      "parallel": true
+    },
+    {
+      "benchmark": "size_scaling",
+      "rows": 10000,
+      "columns": 10,
+      "cells": 100000,
+      "duration_seconds": 0.0799,
+      "throughput_rows_per_sec": 125171,
+      "time_per_row_microseconds": 7.99,
+      "memory_used_mb": 4.68,
+      "dataset_memory_mb": 3.49,
+      "parallel": true
+    },
+    {
+      "benchmark": "size_scaling",
+      "rows": 50000,
+      "columns": 10,
+      "cells": 500000,
+      "duration_seconds": 0.2499,
+      "throughput_rows_per_sec": 200079,
+      "time_per_row_microseconds": 5.0,
+      "memory_used_mb": 8.77,
+      "dataset_memory_mb": 17.44,
+      "parallel": true
+    },
+    {
+      "benchmark": "size_scaling",
+      "rows": 100000,
+      "columns": 10,
+      "cells": 1000000,
+      "duration_seconds": 0.4094,
+      "throughput_rows_per_sec": 244260,
+      "time_per_row_microseconds": 4.09,
+      "memory_used_mb": 11.07,
+      "dataset_memory_mb": 34.89,
+      "parallel": true
+    },
+    {
+      "benchmark": "size_scaling",
+      "rows": 500000,
+      "columns": 10,
+      "cells": 5000000,
+      "duration_seconds": 1.7306,
+      "throughput_rows_per_sec": 288924,
+      "time_per_row_microseconds": 3.46,
+      "memory_used_mb": 122.51,
+      "dataset_memory_mb": 174.43,
+      "parallel": true
+    },
+    {
+      "benchmark": "size_scaling",
+      "rows": 1000000,
+      "columns": 10,
+      "cells": 10000000,
+      "duration_seconds": 3.6817,
+      "throughput_rows_per_sec": 271612,
+      "time_per_row_microseconds": 3.68,
+      "memory_used_mb": 100.64,
+      "dataset_memory_mb": 348.85,
+      "parallel": true
+    },
+    {
+      "benchmark": "width_scaling",
+      "rows": 10000,
+      "columns": 5,
+      "cells": 50000,
+      "duration_seconds": 0.0518,
+      "throughput_rows_per_sec": 193053,
+      "time_per_column_milliseconds": 10.36,
+      "memory_used_mb": -195.19,
+      "parallel": true
+    },
+    {
+      "benchmark": "width_scaling",
+      "rows": 10000,
+      "columns": 10,
+      "cells": 100000,
+      "duration_seconds": 0.0662,
+      "throughput_rows_per_sec": 151141,
+      "time_per_column_milliseconds": 6.62,
+      "memory_used_mb": 1.85,
+      "parallel": true
+    },
+    {
+      "benchmark": "width_scaling",
+      "rows": 10000,
+      "columns": 20,
+      "cells": 200000,
+      "duration_seconds": 0.1417,
+      "throughput_rows_per_sec": 70556,
+      "time_per_column_milliseconds": 7.09,
+      "memory_used_mb": 5.78,
+      "parallel": true
+    },
+    {
+      "benchmark": "width_scaling",
+      "rows": 10000,
+      "columns": 50,
+      "cells": 500000,
+      "duration_seconds": 0.3448,
+      "throughput_rows_per_sec": 29003,
+      "time_per_column_milliseconds": 6.9,
+      "memory_used_mb": 0.11,
+      "parallel": true
+    },
+    {
+      "benchmark": "width_scaling",
+      "rows": 10000,
+      "columns": 100,
+      "cells": 1000000,
+      "duration_seconds": 0.7764,
+      "throughput_rows_per_sec": 12880,
+      "time_per_column_milliseconds": 7.76,
+      "memory_used_mb": 0.0,
+      "parallel": true
+    },
+    {
+      "benchmark": "parallel_comparison",
+      "rows": 10000,
+      "columns": 20,
+      "duration_seconds": 0.0775,
+      "throughput_rows_per_sec": 129100,
+      "parallel": false
+    },
+    {
+      "benchmark": "parallel_comparison",
+      "rows": 10000,
+      "columns": 20,
+      "duration_seconds": 0.1337,
+      "throughput_rows_per_sec": 74789,
+      "parallel": true,
+      "speedup_vs_sequential": 0.58
+    },
+    {
+      "benchmark": "parallel_comparison",
+      "rows": 100000,
+      "columns": 20,
+      "duration_seconds": 0.5269,
+      "throughput_rows_per_sec": 189777,
+      "parallel": false
+    },
+    {
+      "benchmark": "parallel_comparison",
+      "rows": 100000,
+      "columns": 20,
+      "duration_seconds": 0.3905,
+      "throughput_rows_per_sec": 256058,
+      "parallel": true,
+      "speedup_vs_sequential": 1.35
+    },
+    {
+      "benchmark": "data_type_performance",
+      "scenario": "numeric_only",
+      "rows": 50000,
+      "columns": 10,
+      "num_numeric": 10,
+      "num_categorical": 0,
+      "num_text": 0,
+      "duration_seconds": 0.1164,
+      "throughput_rows_per_sec": 429721
+    },
+    {
+      "benchmark": "data_type_performance",
+      "scenario": "categorical_only",
+      "rows": 50000,
+      "columns": 10,
+      "num_numeric": 0,
+      "num_categorical": 10,
+      "num_text": 0,
+      "duration_seconds": 0.3113,
+      "throughput_rows_per_sec": 160621
+    },
+    {
+      "benchmark": "data_type_performance",
+      "scenario": "text_only",
+      "rows": 50000,
+      "columns": 10,
+      "num_numeric": 0,
+      "num_categorical": 0,
+      "num_text": 10,
+      "duration_seconds": 0.3138,
+      "throughput_rows_per_sec": 159331
+    },
+    {
+      "benchmark": "data_type_performance",
+      "scenario": "mixed",
+      "rows": 50000,
+      "columns": 10,
+      "num_numeric": 5,
+      "num_categorical": 3,
+      "num_text": 2,
+      "duration_seconds": 0.2074,
+      "throughput_rows_per_sec": 241029
+    },
+    {
+      "benchmark": "sampling_impact",
+      "total_rows": 1000000,
+      "sample_size": 1000000,
+      "duration_seconds": 3.6541,
+      "throughput_rows_per_sec": 273666,
+      "speedup_vs_full": null
+    },
+    {
+      "benchmark": "sampling_impact",
+      "total_rows": 1000000,
+      "sample_size": 100000,
+      "duration_seconds": 1.4869,
+      "throughput_rows_per_sec": 672539,
+      "speedup_vs_full": 2.46
+    },
+    {
+      "benchmark": "sampling_impact",
+      "total_rows": 1000000,
+      "sample_size": 50000,
+      "duration_seconds": 1.0306,
+      "throughput_rows_per_sec": 970303,
+      "speedup_vs_full": 3.55
+    },
+    {
+      "benchmark": "sampling_impact",
+      "total_rows": 1000000,
+      "sample_size": 10000,
+      "duration_seconds": 0.6607,
+      "throughput_rows_per_sec": 1513543,
+      "speedup_vs_full": 5.53
+    }
+  ]
+}

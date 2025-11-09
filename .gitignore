@@ -64,3 +64,5 @@ dmypy.json
 !tests/fixtures/*.csv
 !tests/fixtures/*.json
 !tests/fixtures/*.parquet
+!benchmarks/results/*.csv
+!benchmarks/results/*.json
